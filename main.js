@@ -45,8 +45,30 @@ function animate() {
     renderer.render( scene, camera );
 };
 
+// perform any updates to the scene, called once per frame
+// avoid heavy computation here
+function update() {
+
+    // increase the mesh's rotation each frame
+    mesh.rotation.z += 0.01;
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
+  
+}
+
+// render, or 'draw a still image', of the scene
+function render() {
+
+    renderer.render( scene, camera );
+  
+}
+
 // call the init function to set everything up
 init();
 
-// then call the animate function to render the scene
-animate();
+// start the animation loop
+renderer.setAnimationLoop( () => {
+update();
+render();
+
+} );
