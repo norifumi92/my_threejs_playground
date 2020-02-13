@@ -62,7 +62,13 @@ function render() {
     renderer.render( scene, camera );
   
 }
+// Resize Event
+function onWindowResize() {
 
+    console.log( 'You resized the browser window!' );
+  
+}
+window.addEventListener( 'resize', onWindowResize );
 // call the init function to set everything up
 init();
 
