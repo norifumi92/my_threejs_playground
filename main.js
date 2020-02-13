@@ -5,11 +5,12 @@ let camera;
 let scene;
 let mesh;
 let light;
+let container;
 
 function init() {
+
     renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
-    document.body.appendChild( renderer.domElement );
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xffffff ); 
@@ -33,6 +34,11 @@ function init() {
     light = new THREE.DirectionalLight( 0xffffff, 1.0);
     light.position.set( 0, 1, 0 );
     scene.add( light );
+
+    // Get a reference to the container element that will hold our scene
+    container = document.querySelector( '#scene-container' );
+    // add the automatically created <canvas> element to the page
+    container.appendChild( renderer.domElement );
 
 }
 
@@ -65,12 +71,20 @@ function render() {
 // Resize Event
 function onWindowResize() {
 
-    console.log( 'You resized the browser window!' );
-  
+  // set the aspect ratio to match the new browser window aspect ratio
+  camera.aspect = container.clientWidth / container.clientHeight;
+  // update the camera's frustum
+  camera.updateProjectionMatrix();
+  // update the size of the renderer AND the canvas
+  renderer.setSize( container.clientWidth, container.clientHeight );
+  console.log("client width :"+container.clientWidth);
 }
-window.addEventListener( 'resize', onWindowResize );
+
 // call the init function to set everything up
 init();
+
+window.addEventListener( 'resize', onWindowResize );
+
 
 // start the animation loop
 renderer.setAnimationLoop( () => {
