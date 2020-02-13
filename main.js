@@ -15,10 +15,6 @@ function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xffffff ); 
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    camera.position.set( 0, 0, 5 );
-    camera.lookAt( 0, 0, 0 );
-
     const geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
 
     // create a texture loader
@@ -47,7 +43,19 @@ function init() {
     container = document.querySelector( '#scene-container' );
     // add the automatically created <canvas> element to the page
     container.appendChild( renderer.domElement );
+    createCamera()
+}
 
+function createCamera() {
+    fov = 45;
+    camera = new THREE.PerspectiveCamera( 
+        fov,
+        container.clientWidth/container.clientHeight,
+        0.1,
+        1000 
+        );
+    camera.position.set( 0, 0, 10 );
+    camera.lookAt( 0, 0, 0 );
 }
 
 function animate() {
