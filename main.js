@@ -19,20 +19,28 @@ function init() {
     camera.position.set( 0, 0, 5 );
     camera.lookAt( 0, 0, 0 );
 
-    var geometry = new THREE.BoxGeometry();
-    const materialSpecObject = {
-        color: 0xff8500,
-        transparent: false,
-        opacity: 1,
-      };
-    
+    const geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
+
+    // create a texture loader
+    const loader = new THREE.TextureLoader();
+    loader.setCrossOrigin('anonymous');
+    texture = loader.load('resources/images/wall.jpg');
+
+    // set the "color space" of the texture
+    texture.encoding = THREE.sRGBEncoding;
+    // reduce blurring at glancing angles
+    texture.anisotropy = 16;
+
     //material should not be MeshBasicMaterial since it will not react to lights.
-    const material = new THREE.MeshStandardMaterial(materialSpecObject);
+    const material = new THREE.MeshStandardMaterial( {
+        color: 0xffffff, map: texture,
+        } );
+
     mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
 
-    light = new THREE.DirectionalLight( 0xffffff, 1.0);
-    light.position.set( 0, 1, 0 );
+    light = new THREE.DirectionalLight( 0xffffff, 3.0);
+    light.position.set( 10, 10, 10 );
     scene.add( light );
 
     // Get a reference to the container element that will hold our scene
