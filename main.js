@@ -1,4 +1,5 @@
-var THREE = require('three');
+"use strict";
+const THREE = require('three');
 // these need to be accessed inside more than one function so we'll declare them first
 let renderer;
 let camera;
@@ -35,7 +36,7 @@ function createMeshes() {
     // create a texture loader
     const textureLoader = new THREE.TextureLoader();
     textureLoader.setCrossOrigin('anonymous');
-    texture = textureLoader.load('resources/images/wall.jpg');
+    const texture = textureLoader.load('resources/images/wall.jpg');
     // set the "color space" of the texture
     texture.encoding = THREE.sRGBEncoding;
     // reduce blurring at glancing angles
@@ -59,7 +60,7 @@ function createRenderer() {
 
 // Configure camera
 function createCamera() {
-    fov = 45;
+    const fov = 45;
     camera = new THREE.PerspectiveCamera( 
         fov,
         container.clientWidth/container.clientHeight,
