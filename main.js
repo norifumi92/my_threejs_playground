@@ -9,8 +9,8 @@ let container;
 
 function init() {
 
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    container = document.querySelector( '#scene-container' );
+    createRenderer()
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xffffff ); 
@@ -39,11 +39,13 @@ function init() {
     light.position.set( 10, 10, 10 );
     scene.add( light );
 
-    // Get a reference to the container element that will hold our scene
-    container = document.querySelector( '#scene-container' );
-    // add the automatically created <canvas> element to the page
-    container.appendChild( renderer.domElement );
     createCamera()
+}
+
+function createRenderer(){
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    container.appendChild( renderer.domElement );
 }
 
 function createCamera() {
