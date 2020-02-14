@@ -10,37 +10,48 @@ let container;
 function init() {
 
     container = document.querySelector( '#scene-container' );
-    createRenderer()
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0xffffff ); 
+    scene.background = new THREE.Color( 0x8FBCD4 ); 
+    
+    createCamera();
+    createLights();
+    createMeshes();
+    createRenderer();
+
+    // start the animation loop
+    renderer.setAnimationLoop( () => {
+    update();
+    render();
+    } );
+    
+}
+
+//Configure meshes
+function createMeshes() {
 
     const geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
 
     // create a texture loader
-    const loader = new THREE.TextureLoader();
-    loader.setCrossOrigin('anonymous');
-    texture = loader.load('resources/images/wall.jpg');
-
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.setCrossOrigin('anonymous');
+    texture = textureLoader.load('resources/images/wall.jpg');
     // set the "color space" of the texture
     texture.encoding = THREE.sRGBEncoding;
     // reduce blurring at glancing angles
     texture.anisotropy = 16;
-
-    //material should not be MeshBasicMaterial since it will not react to lights.
+    
     const material = new THREE.MeshStandardMaterial( {
         color: 0xffffff, map: texture,
-        } );
+    } );
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh(geometry, material);
     scene.add( mesh );
-    
-    createCamera()
-    createLights()
+
 }
 
 // Configure renderer and set it into container
-function createRenderer(){
+function createRenderer() {
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
     container.appendChild( renderer.domElement );
@@ -65,15 +76,6 @@ function createLights() {
     light.position.set( 10, 10, 10 );
     scene.add( light );    
 }
-
-function animate() {
-    requestAnimationFrame( animate );
-
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
-
-    renderer.render( scene, camera );
-};
 
 // perform any updates to the scene, called once per frame
 // avoid heavy computation here
@@ -101,7 +103,6 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   // update the size of the renderer AND the canvas
   renderer.setSize( container.clientWidth, container.clientHeight );
-  console.log("client width :"+container.clientWidth);
 }
 
 // call the init function to set everything up
@@ -109,10 +110,3 @@ init();
 
 window.addEventListener( 'resize', onWindowResize );
 
-
-// start the animation loop
-renderer.setAnimationLoop( () => {
-update();
-render();
-
-} );
