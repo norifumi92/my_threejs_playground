@@ -34,20 +34,19 @@ function init() {
 
     mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
-
-    light = new THREE.DirectionalLight( 0xffffff, 3.0);
-    light.position.set( 10, 10, 10 );
-    scene.add( light );
-
+    
     createCamera()
+    createLights()
 }
 
+// Configure renderer and set it into container
 function createRenderer(){
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
     container.appendChild( renderer.domElement );
 }
 
+// Configure camera
 function createCamera() {
     fov = 45;
     camera = new THREE.PerspectiveCamera( 
@@ -58,6 +57,13 @@ function createCamera() {
         );
     camera.position.set( 0, 0, 10 );
     camera.lookAt( 0, 0, 0 );
+}
+
+// Configure lights
+function createLights() {
+    light = new THREE.DirectionalLight( 0xffffff, 3.0);
+    light.position.set( 10, 10, 10 );
+    scene.add( light );    
 }
 
 function animate() {
