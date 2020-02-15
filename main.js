@@ -20,6 +20,7 @@ function init() {
     createLights();
     createMeshes();
     createRenderer();
+    renderer.physicallyCorrectLights = true;
 
     // start the animation loop
     renderer.setAnimationLoop( () => {
@@ -71,9 +72,13 @@ function createLights() {
     const ambientLight = new THREE.HemisphereLight(
         0xddeeff, // bright sky color
         0x202020, // dim ground color
-        3, // intensity
+        5, // intensity
     );
-    scene.add( ambientLight );
+
+    const mainLight = new THREE.DirectionalLight( 0xffffff, 5 );
+    mainLight.position.set( 10, 10, 10 );
+
+    scene.add( ambientLight, mainLight );
 }
 
 // Configure controls
