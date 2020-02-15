@@ -33,24 +33,19 @@ function init() {
 //Configure meshes
 function createMeshes() {
 
-    const geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
+    //const geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
+    //const textureLoader = new THREE.TextureLoader();
+    //textureLoader.setCrossOrigin('anonymous');
+    //texture = textureLoader.load('resources/images/wall.jpg');
+    //texture.encoding = THREE.sRGBEncoding;
+    //texture.anisotropy = 16;
+    //const material = new THREE.MeshStandardMaterial( {
+    //    color: 0xffffff, map: texture,
+    //} );
 
-    // create a texture loader
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.setCrossOrigin('anonymous');
-    texture = textureLoader.load('resources/images/wall.jpg');
-    // set the "color space" of the texture
-    texture.encoding = THREE.sRGBEncoding;
-    // reduce blurring at glancing angles
-    texture.anisotropy = 16;
+    const materials = createMaterials();
+    const geometries = createGeometries();
     
-    const material = new THREE.MeshStandardMaterial( {
-        color: 0xffffff, map: texture,
-    } );
-
-    mesh = new THREE.Mesh(geometry, material);
-    scene.add( mesh );
-
 }
 
 // Configure renderer and set it into container
@@ -60,10 +55,24 @@ function createRenderer() {
     container.appendChild( renderer.domElement );
 }
 
+function createMaterials() {
+
+    // we'll create a red materials for the body
+    // and a dark grey material for the details here
+  
+  
+}
+  
+function createGeometries() {
+  
+    // we'll create geometries for the nose, cabin, chimney, and wheels here
+  
+}
+
 // Configure camera
 function createCamera() {
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    camera.position.set( -5, 5, 5 );
+    camera.position.set( -5, 5, 7 );
     camera.lookAt( 0, 0, 0 );
 }
 
