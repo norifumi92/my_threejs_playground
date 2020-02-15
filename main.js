@@ -1,4 +1,5 @@
-var THREE = require('three');
+const THREE = require('three');
+const OrbitControls = require('./resources/js/vendor/three/OrbitControls.js');
 // these need to be accessed inside more than one function so we'll declare them first
 let renderer;
 let camera;
@@ -15,6 +16,7 @@ function init() {
     scene.background = new THREE.Color( 0x8FBCD4 ); 
     
     createCamera();
+    createControls();
     createLights();
     createMeshes();
     createRenderer();
@@ -60,7 +62,7 @@ function createRenderer() {
 // Configure camera
 function createCamera() {
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    camera.position.set( 0, 0, 5 );
+    camera.position.set( -5, 5, 5 );
     camera.lookAt( 0, 0, 0 );
 }
 
@@ -71,14 +73,21 @@ function createLights() {
     scene.add( light );    
 }
 
+// Configure controls
+function createControls() {
+
+    controls = new THREE.OrbitControls( camera, container );
+  
+}
+
 // perform any updates to the scene, called once per frame
 // avoid heavy computation here
 function update() {
 
     // increase the mesh's rotation each frame
-    mesh.rotation.z += 0.01;
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
+    //mesh.rotation.z += 0.01;
+    //mesh.rotation.x += 0.01;
+    //mesh.rotation.y += 0.01;
   
 }
 
