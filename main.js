@@ -68,11 +68,12 @@ function createCamera() {
 
 // Configure lights
 function createLights() {
-    const ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
+    const ambientLight = new THREE.HemisphereLight(
+        0xddeeff, // bright sky color
+        0x202020, // dim ground color
+        3, // intensity
+    );
     scene.add( ambientLight );
-    mainLight = new THREE.DirectionalLight( 0xffffff, 3.0);
-    mainLight.position.set( 10, 10, 10 );
-    scene.add( mainLight );    
 }
 
 // Configure controls
