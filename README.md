@@ -7,15 +7,17 @@ Run and install followings:
 ```bash
 #install browserify
 npm install --global browserify
+#install Beefy
+npm install -g beefy
 #install three.js
 npm install three --save
 ```
 
 ## Bundle up JS files
-Running the followings, `main.js` and its dependency (`three.js`) will be bundled and `bundle.js` is generated.　This `bundle.js` can be run in the client side (Browser).
+Running the followings, Beefy will bundle up `main.js` and its dependency (`three.js`) and deploy it to the web server.
 
 ```bash
-browserify --debug main.js -o bundle.js
+beefy main.js --live
 ```
 
 ## Memo
@@ -24,3 +26,4 @@ browserify --debug main.js -o bundle.js
 ## Reference
 - [Get start with Brooserify](https://scotch.io/tutorials/getting-started-with-browserify)
 - [Three.js](https://scotch.io/tutorials/getting-started-with-browserify)
+- [Three.js Tutorial](https://discoverthreejs.com/)
