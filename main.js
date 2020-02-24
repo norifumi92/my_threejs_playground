@@ -46,8 +46,12 @@ function createMeshes() {
     const cabin = new THREE.Mesh( geometries.cabin, materials.body );
     cabin.position.set( 1.5, 0.4, 0 );
 
+    const chimney = new THREE.Mesh( geometries.chimney, materials.detail );
+    chimney.position.set( -2, 0.9, 0);
+
     scene.add( nose, 
-        cabin 
+        cabin,
+        chimney 
         )
     
 }
@@ -87,9 +91,12 @@ function createGeometries() {
     const nose = new THREE.CylinderBufferGeometry( 0.75, 0.75, 3, 20 );
     //create cabin
     const cabin = new THREE.BoxBufferGeometry( 2, 2.25, 1.5 );
+    //create chimney
+    const chimney = new THREE.CylinderBufferGeometry( 0.3, 0.1, 0.5 );
     return {
         nose,
-        cabin
+        cabin,
+        chimney,
     }
 }
 
