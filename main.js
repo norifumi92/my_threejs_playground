@@ -17,14 +17,16 @@ function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0x8FBCD4 ); 
     
-    axes = new THREE.AxesHelper( 5 );
+    axes = new THREE.AxesHelper( 50 );
     scene.add( axes );
 
     createCamera();
     createControls();
     createLights();
     createMeshes();
+    loadModels();
     createRenderer();
+
     renderer.physicallyCorrectLights = true;
 
     // start the animation loop
@@ -131,7 +133,7 @@ function createGeometries() {
 // Configure camera
 function createCamera() {
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    camera.position.set( -5, 5, 7 );
+    camera.position.set( 0, 10, 10 );
     camera.lookAt( 0, 0, 0 );
 }
 
@@ -163,7 +165,7 @@ function update() {
     // increase the mesh's rotation each frame
     //train.rotation.z += 0.01;
     //train.rotation.x += 0.01;
-    train.rotation.y += 0.01;
+    //train.rotation.y += 0.01;
   
 }
 
@@ -187,7 +189,33 @@ function onWindowResize() {
 function loadModels() {
 
     const loader = new THREE.GLTFLoader();
+    
+    const url = 'resources/models/Parrot.glb';
 
+    // A reusable function to set up the models. We're passing in a position parameter
+    // so that they can be individually placed around the scene
+    const onLoad = ( gltf, position ) => {
+
+        console.log(gltf);
+        const model = gltf.scene.children[ 0 ];
+        model.position.copy( position );
+        model.scale.set( 0.05 , 0.05, 0.05 );
+        //const animation = gltf.animations[ 0 ];
+
+        //const mixer = new THREE.AnimationMixer( model );
+        //mixers.push( mixer );
+
+        //const action = mixer.clipAction( animation );
+        //action.play();
+        scene.add( model );
+
+    };
+    
+    // load the first model. Each model is loaded asynchronously,
+    // so don't make any assumption about which one will finish loading first
+    const parrotPosition = new THREE.Vector3( 0, 5, 5 );
+    loader.load( url, gltf => onLoad( gltf, parrotPosition ));
+    
 }
 
 // call the init function to set everything up
