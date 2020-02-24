@@ -4,7 +4,7 @@ const OrbitControls = require('./resources/js/vendor/three/OrbitControls.js');
 let renderer;
 let camera;
 let scene;
-let mesh;
+let train;
 //let light;
 let container;
 let axes;
@@ -37,6 +37,9 @@ function init() {
 //Configure meshes
 function createMeshes() {
 
+    // create a Group to hold the pieces of the train
+    train = new THREE.Group();
+
     const materials = createMaterials();
     const geometries = createGeometries();
     const nose = new THREE.Mesh( geometries.nose, materials.body );
@@ -62,7 +65,7 @@ function createMeshes() {
     bigWheel.scale.set( 2, 2, 1.25 );
     bigWheel.position.set( 1.5, -0.1, 0 );
 
-    scene.add( 
+    train.add( 
         nose, 
         cabin,
         chimney,
@@ -72,6 +75,7 @@ function createMeshes() {
         bigWheel,
         )
     
+    scene.add( train );
 }
 
 // Configure renderer and set it into container
@@ -156,9 +160,9 @@ function createControls() {
 function update() {
 
     // increase the mesh's rotation each frame
-    //nose.rotation.z += 0.01;
-    //mesh.rotation.x += 0.01;
-    //mesh.rotation.y += 0.01;
+    //train.rotation.z += 0.01;
+    //train.rotation.x += 0.01;
+    train.rotation.y += 0.01;
   
 }
 
