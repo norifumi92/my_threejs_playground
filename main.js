@@ -7,6 +7,7 @@ let scene;
 let mesh;
 //let light;
 let container;
+let axes;
 
 function init() {
 
@@ -15,6 +16,9 @@ function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0x8FBCD4 ); 
     
+    axes = new THREE.AxesHelper( 5 );
+    scene.add( axes );
+
     createCamera();
     createControls();
     createLights();
@@ -42,7 +46,9 @@ function createMeshes() {
     const cabin = new THREE.Mesh( geometries.cabin, materials.body );
     cabin.position.set( 1.5, 0.4, 0 );
 
-    scene.add( nose, cabin )
+    scene.add( nose, 
+        cabin 
+        )
     
 }
 
