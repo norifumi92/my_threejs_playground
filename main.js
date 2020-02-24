@@ -49,9 +49,27 @@ function createMeshes() {
     const chimney = new THREE.Mesh( geometries.chimney, materials.detail );
     chimney.position.set( -2, 0.9, 0);
 
-    scene.add( nose, 
+    const smallWheelRear = new THREE.Mesh( geometries.wheel, materials.detail );
+    smallWheelRear.position.set( 0, -0.5, 0 );
+  
+    const smallWheelCenter = smallWheelRear.clone();
+    smallWheelCenter.position.x = -1;
+
+    const smallWheelFront = smallWheelRear.clone();
+    smallWheelFront.position.x = -2;
+
+    const bigWheel = smallWheelRear.clone();
+    bigWheel.scale.set( 2, 2, 1.25 );
+    bigWheel.position.set( 1.5, -0.1, 0 );
+
+    scene.add( 
+        nose, 
         cabin,
-        chimney 
+        chimney,
+        smallWheelRear,
+        smallWheelCenter,
+        smallWheelFront,
+        bigWheel,
         )
     
 }
@@ -90,13 +108,18 @@ function createGeometries() {
     //create nose
     const nose = new THREE.CylinderBufferGeometry( 0.75, 0.75, 3, 20 );
     //create cabin
-    const cabin = new THREE.BoxBufferGeometry( 2, 2.25, 1.5 );
+    const cabin = new THREE.BoxBufferGeometry( 2, 2, 1.5 );
     //create chimney
     const chimney = new THREE.CylinderBufferGeometry( 0.3, 0.1, 0.5 );
+    //create wheel
+    const wheel = new THREE.CylinderBufferGeometry( 0.4, 0.4, 1.5, 16 );
+    wheel.rotateX( Math.PI / 2 );
+
     return {
         nose,
         cabin,
         chimney,
+        wheel,
     }
 }
 
@@ -133,7 +156,7 @@ function createControls() {
 function update() {
 
     // increase the mesh's rotation each frame
-    //mesh.rotation.z += 0.01;
+    //nose.rotation.z += 0.01;
     //mesh.rotation.x += 0.01;
     //mesh.rotation.y += 0.01;
   
