@@ -1,5 +1,6 @@
 const THREE = require('three');
 const OrbitControls = require('./resources/js/vendor/three/OrbitControls.js');
+const GLTFLoaders = require('./resources/js/vendor/three/GLTFLoader.js');
 // these need to be accessed inside more than one function so we'll declare them first
 let renderer;
 let camera;
@@ -181,6 +182,12 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   // update the size of the renderer AND the canvas
   renderer.setSize( container.clientWidth, container.clientHeight );
+}
+
+function loadModels() {
+
+    const loader = new THREE.GLTFLoader();
+
 }
 
 // call the init function to set everything up
