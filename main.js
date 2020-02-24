@@ -39,7 +39,10 @@ function createMeshes() {
     nose.rotation.z = Math.PI / 2;
     nose.position.x = -1;
 
-    scene.add( nose )
+    const cabin = new THREE.Mesh( geometries.cabin, materials.body );
+    cabin.position.set( 1.5, 0.4, 0 );
+
+    scene.add( nose, cabin )
     
 }
 
@@ -53,7 +56,7 @@ function createRenderer() {
 function createMaterials() {
 
     const body = new THREE.MeshStandardMaterial( {
-        color: 0xff333333,
+        color: 0xff3333,
         flatShading: true,
     })
     // just as with textures, we need to put colors into linear color space
@@ -76,9 +79,11 @@ function createMaterials() {
 function createGeometries() {
     //create nose
     const nose = new THREE.CylinderBufferGeometry( 0.75, 0.75, 3, 20 );
-
+    //create cabin
+    const cabin = new THREE.BoxBufferGeometry( 2, 2.25, 1.5 );
     return {
         nose,
+        cabin
     }
 }
 
