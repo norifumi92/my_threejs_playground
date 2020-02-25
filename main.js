@@ -9,6 +9,7 @@ let train;
 //let light;
 let container;
 let axes;
+let direction = 'left';
 
 function init() {
 
@@ -161,7 +162,18 @@ function createControls() {
 // perform any updates to the scene, called once per frame
 // avoid heavy computation here
 function update() {
-
+    
+    if( direction == 'left' && train.position.x > -10) {
+        train.position.x += -0.1;
+    } else if ( parseInt(train.position.x) <= -10 ) {
+        direction = 'right'
+        train.position.x += 0.1;
+    } else if ( direction == 'right' && train.position.x < 0) {
+        train.position.x += 0.1;
+    } else if ( parseInt(train.position.x) >= 0 ) {
+        direction = 'left'
+        train.position.x += -0.1;
+    };
     // increase the mesh's rotation each frame
     //train.rotation.z += 0.01;
     //train.rotation.x += 0.01;
